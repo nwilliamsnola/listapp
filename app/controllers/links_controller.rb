@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show]
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, :except => [:index, :show]
   before_action :authorized_user, only: [:edit, :update, :destroy]
 
   # GET /links
@@ -76,7 +76,7 @@ class LinksController < ApplicationController
 
     def authorized_user
       @link = current_user.links.find_by(id: params[:id])
-      redirect_to links_path, notice: "Hi!  You are not authorized to edit this page.  Sorry!"
+      redirect_to links_path, notice: "Hi!  You are not authorized to edit this link.  Sorry!" if @link.nil?
     end
 
 end
