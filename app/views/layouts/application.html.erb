@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Lists</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,200' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+	<nav class= "navbar navbar-inverse">
+		<div class="container-fluid">
+		<a class= "navbar-brand" href="#">YOUR LISTS... CAPTURED!</a>
+	</div>
+	</nav>
+
+	<div class= "container">
+	<% if user_signed_in? %>
+						<ul>
+							<li><%= link_to 'Submit link', new_link_path %></li>
+							<li><%= link_to 'Account', edit_user_registration_path %></li>
+							<li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+						</ul>
+					<% else -%>
+						<ul>
+							<li><%= link_to 'Sign up', new_user_registration_path %></li>
+							<li><%= link_to 'Sign in', new_user_session_path %></li>
+						</ul>
+					<% end %>
+		
+
+
+	  	<% flash.each do |name, msg| %>
+		  <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+		<% end %>
+
+	
+
+			<%= yield %>
+
+	</div>
+
+
+</body>
+</html>
